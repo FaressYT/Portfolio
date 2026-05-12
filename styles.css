@@ -86,8 +86,8 @@ main {
 
 .tab-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  width: min(100%, 28rem);
+  grid-template-columns: repeat(var(--tab-count, 1), minmax(0, 1fr));
+  width: min(100%, 9rem);
   border: 1px solid var(--line);
   background: rgba(16, 17, 19, 0.76);
   backdrop-filter: blur(18px);
@@ -107,6 +107,14 @@ main {
 }
 
 .tab-button:last-child {
+  border-right: 0;
+}
+
+.tab-button[hidden] {
+  display: none;
+}
+
+.tab-button:last-of-type {
   border-right: 0;
 }
 
@@ -207,6 +215,185 @@ main {
 
 .two-column {
   grid-template-columns: minmax(0, 0.95fr) minmax(20rem, 1.05fr);
+}
+
+.arsenal-layout {
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2rem, 4vh, 3.5rem);
+}
+
+.arsenal-layout .section-title {
+  max-width: 35ch;
+}
+
+.arsenal-layout .body-copy {
+  max-width: 64rem;
+}
+
+.arsenal-matrix {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.skill-pillar {
+  min-height: clamp(16rem, 35vh, 22rem);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+  padding: clamp(1.25rem, 2vw, 1.75rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skill-pillar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.04),
+      transparent 40%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.skill-pillar:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.4);
+}
+
+.skill-pillar:hover::before {
+  opacity: 1;
+}
+
+.featured-pillar {
+  background: rgba(58, 166, 92, 0.03);
+  border-color: rgba(58, 166, 92, 0.2);
+}
+
+.featured-pillar::before {
+  background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(58, 166, 92, 0.08),
+      transparent 40%);
+}
+
+.featured-pillar:hover {
+  background: rgba(58, 166, 92, 0.06);
+  border-color: rgba(58, 166, 92, 0.6);
+  box-shadow: 0 20px 40px -20px rgba(58, 166, 92, 0.2);
+}
+
+.pillar-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 2;
+}
+
+.pillar-heading i {
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+  color: var(--green);
+  background: rgba(16, 17, 19, 0.7);
+  font-size: 1.25rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.skill-pillar:hover .pillar-heading i {
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--ink);
+  transform: rotate(-5deg) scale(1.05);
+}
+
+.pillar-titles {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.pillar-heading h3 {
+  margin: 0;
+  color: var(--paper);
+  font-family: Space Grotesk, Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  font-weight: 800;
+}
+
+.pillar-meta {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.skill-pillar:hover .pillar-meta {
+  color: var(--paper);
+  opacity: 1;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-content: flex-end;
+  position: relative;
+  z-index: 2;
+}
+
+.skill-tags span {
+  display: inline-flex;
+  min-height: 2.15rem;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.01);
+  padding: 0 0.85rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1;
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.skill-pillar:hover .skill-tags span {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: var(--paper);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.featured-pillar .skill-tags span {
+  border-color: rgba(58, 166, 92, 0.15);
+}
+
+.featured-pillar:hover .skill-tags span {
+  border-color: rgba(58, 166, 92, 0.3);
+  background: rgba(58, 166, 92, 0.04);
+}
+
+.skill-tags span:hover {
+  background: var(--green) !important;
+  color: var(--ink) !important;
+  border-color: var(--green) !important;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 12px rgba(58, 166, 92, 0.25);
 }
 
 .experience-slide {
@@ -627,6 +814,14 @@ a.experience-logo:focus-visible {
   .display-title,
   .section-title {
     max-width: 100%;
+  }
+
+  .arsenal-matrix {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .skill-pillar {
+    min-height: auto;
   }
 
   .experience-layout {

@@ -11,9 +11,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Space+Grotesk:wght@700&display=swap"
     rel="stylesheet" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -24,14 +22,16 @@
         <button class="tab-button" type="button" role="tab" aria-selected="true" data-tab="resume">
           Resume
         </button>
+        <!-- 
         <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="development">
           Development
         </button>
         <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="marketing">
           Marketing
         </button>
+        -->
       </nav>
-      <a class="contact-shortcut" href="#contact" data-jump-tab="resume" data-jump-slide="5">Contact</a>
+      <a class="contact-shortcut" href="#contact" data-jump-tab="resume" data-jump-target="contact">Contact</a>
     </header>
 
     <div class="progress-rail" aria-hidden="true">
@@ -43,7 +43,7 @@
         <article class="slide" data-kicker="01 / Resume">
           <div class="slide-grid">
             <div class="reveal">
-              <h1 class="display-title">Fares Sabbagh</h1>
+              <h1 class="display-title">Fares Sabbagh.</h1>
               <p class="hero-copy">
                 Located in Damascus, Syria. Business Development Manager @ <a href="https://so-development.org/">SOD</a>
                 & IT Engineering Student.
@@ -54,29 +54,71 @@
           </div>
         </article>
 
-        <article class="slide" data-kicker="02 / Positioning">
-          <div class="slide-grid">
+        <article class="slide arsenal-slide" data-kicker="02 / Arsenal">
+          <div class="slide-grid arsenal-layout">
             <div class="reveal">
-              <div class="eyebrow">How I Work</div>
-              <h2 class="section-title">Useful first. Polished second.</h2>
+              <h2 class="section-title">Tools behind the work.</h2>
               <p class="body-copy">
-                Replace this with a sharper personal statement about your approach, your standards,
-                and the kind of work you want to be hired for.
+                A practical stack built around three parts of the same job: building the experience,
+                getting it in front of the right audience, and keeping the work organized enough to scale.
               </p>
             </div>
-            <div class="capability-grid reveal">
-              <div class="panel">
-                <strong>Frontend Development</strong>
-                <p>Responsive interfaces, clean structure, and maintainable HTML, CSS, and JavaScript.</p>
-              </div>
-              <div class="panel">
-                <strong>Conversion Thinking</strong>
-                <p>Landing pages and user flows shaped around clarity, trust, and action.</p>
-              </div>
-              <div class="panel">
-                <strong>Marketing Strategy</strong>
-                <p>Messaging, campaigns, and content choices tied to audience behavior.</p>
-              </div>
+            <div class="arsenal-matrix reveal" aria-label="Skills and technology stack">
+              <section class="skill-pillar">
+                <div class="pillar-heading">
+                  <i class="fa-solid fa-code" aria-hidden="true"></i>
+                  <div class="pillar-titles">
+                    <h3>Development</h3>
+                    <span class="pillar-meta">Stack & Interfaces</span>
+                  </div>
+                </div>
+                <div class="skill-tags">
+                  <span>HTML</span>
+                  <span>CSS</span>
+                  <span>JavaScript</span>
+                  <span>React</span>
+                  <span>Laravel</span>
+                  <span>Flutter</span>
+                  <span>Tailwind</span>
+                  <span>Wordpress</span>
+                  <span>UI/UX Design</span>
+                </div>
+              </section>
+
+              <section class="skill-pillar featured-pillar">
+                <div class="pillar-heading">
+                  <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                  <div class="pillar-titles">
+                    <h3>Marketing</h3>
+                    <span class="pillar-meta">Growth & Synthesis</span>
+                  </div>
+                </div>
+                <div class="skill-tags">
+                  <span>Creative Strategy</span>
+                  <span>SEO</span>
+                  <span>Social Media Management</span>
+                  <span>Google Veo / AI</span>
+                  <span>Adobe Creative Suite</span>
+                  <span>Photography</span>
+                  <span>Brand Management</span>
+                </div>
+              </section>
+
+              <section class="skill-pillar">
+                <div class="pillar-heading">
+                  <i class="fa-solid fa-diagram-project" aria-hidden="true"></i>
+                  <div class="pillar-titles">
+                    <h3>Business</h3>
+                    <span class="pillar-meta">Operations & Strategy</span>
+                  </div>
+                </div>
+                <div class="skill-tags">
+                  <span>Project Management</span>
+                  <span>Client Coordination</span>
+                  <span>Workflow Optimization</span>
+                  <span>Team Leadership</span>
+                </div>
+              </section>
             </div>
           </div>
         </article>
@@ -128,7 +170,7 @@
                   <h3>Project Manager</h3>
                   <p class="experience-company">
                     <a href="https://so-development.org/" target="_blank" rel="noreferrer">SO Development</a>
-                    / AI and data-driven projects
+                    / Full-time Remote - Estonia
                   </p>
                   <ul>
                     <li>
@@ -166,14 +208,36 @@
                     / Part-time Onsite - Damascus, Syria
                   </p>
                   <p>
-                    Creative strategist across social media, marketing plans, content, graphic design,
-                    scheduling, client coordination, and workflow optimization.
+                    Creative strategist specializing in social media management, developing marketing
+                    plans, and creating engaging content. Skilled in graphic design, content scheduling,
+                    and client coordination. While optimizing workflows, and enhancing brand presence.
                   </p>
                   <ul>
-                    <li>Managed accounts across hospitality, entertainment, AI, ISP, Syria, UAE, and USA.</li>
-                    <li>Built responsive websites for companies and government agencies.</li>
-                    <li>Created marketing strategies that raised reach and awareness by up to 200%.</li>
-                    <li>Produced content calendars, visuals, reels, campaigns, and 150+ Arabic articles.</li>
+                    <li>
+                      Managed social media for Royal Semiramis Hotel, Golden Mazzeh Hotel, Sultan Alsharq,
+                      Styria Comedy, Al Dandashi National Group, Omniya ISP, and various accounts locally
+                      and across multiple countries including the UAE and USA, ensuring brand consistency
+                      and audience engagement. All the account and results will be given upon request.
+                    </li>
+                    <li>
+                      Developed and made multiple websites for companies and government agencies, focusing
+                      on unique design and responsiveness.
+                    </li>
+                    <li>
+                      Created extensive marketing plans and strategies that ensure the brand is on the
+                      right track to hit its operational goals, and increasing reach and awareness by up
+                      to 200% in some cases.
+                    </li>
+                    <li>
+                      Led and created multiple websites and experiences to help clients reach their goals,
+                      be it locally or around the world. Websites will be given upon request. The development,
+                      design, content, and marketing campaigns were all spearheaded and made by myself.
+                    </li>
+                    <li>Created content calendars, designed visuals, and produced reels to enhance digital presence.
+                    </li>
+                    <li>Authored 150+ articles for Chicago/NYC in Arabic, showcasing strong editorial skills.</li>
+                    <li>Coordinated with clients to align marketing strategies with business goals.</li>
+                    <li>Optimized internal workflows for content creation, scheduling, and client coordination.</li>
                   </ul>
                 </div>
               </section>
@@ -197,7 +261,13 @@
                   </ul>
                 </div>
               </section>
+            </div>
+          </div>
+        </article>
 
+        <article class="slide experience-slide" data-kicker="05 / Experience">
+          <div class="experience-layout reveal">
+            <div class="experience-stack">
               <section class="experience-card">
                 <div class="experience-logo" aria-label="Freelance work icon">
                   <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
@@ -214,33 +284,18 @@
                   </ul>
                 </div>
               </section>
-            </div>
-          </div>
-        </article>
 
-        <article class="slide" data-kicker="05 / Skills">
-          <div class="slide-grid">
-            <div class="reveal">
-              <div class="eyebrow">Skills</div>
-              <h2 class="section-title">Tools for building and growing.</h2>
-              <div class="skills-grid mt-8">
-                <div class="panel">
-                  <strong>Frontend</strong>
-                  <span>HTML, CSS, JavaScript, Tailwind CSS</span>
+              <section class="experience-card compact-card">
+                <div class="experience-logo" aria-label="Education icon">
+                  <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
                 </div>
-                <div class="panel">
-                  <strong>Tools</strong>
-                  <span>Git, GitHub, Figma, analytics tools</span>
+                <div class="experience-content">
+                  <div class="experience-date">Oct 2023 - Ongoing</div>
+                  <h3>Education</h3>
+                  <p class="experience-company">Damascus University / IT Engineering</p>
+                  <p>Baccalaureate Degree</p>
                 </div>
-                <div class="panel">
-                  <strong>Marketing</strong>
-                  <span>SEO, copywriting, positioning, campaigns</span>
-                </div>
-                <div class="panel">
-                  <strong>Focus</strong>
-                  <span>Responsive design, clarity, conversion, performance</span>
-                </div>
-              </div>
+              </section>
             </div>
           </div>
         </article>
@@ -248,7 +303,6 @@
         <article class="slide" id="contact" data-kicker="06 / Contact">
           <div class="slide-grid">
             <div class="reveal">
-              <div class="eyebrow">Contact</div>
               <h2 class="section-title">Let's build something clear.</h2>
               <div class="contact-list mt-8">
                 <a href="mailto:info@faressabbagh.com">Email <span>info@faressabbagh.com</span></a>
@@ -266,6 +320,7 @@
         </article>
       </section>
 
+      <!--
       <section class="track" data-track="development" aria-label="Web development portfolio">
         <article class="slide" data-kicker="01 / Development">
           <div class="slide-grid two-column">
@@ -413,6 +468,7 @@
           </div>
         </article>
       </section>
+      -->
     </main>
   </div>
   <script src="main.js"></script>

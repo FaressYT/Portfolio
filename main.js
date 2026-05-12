@@ -60,14 +60,16 @@ document.querySelectorAll("[data-jump-tab]").forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
     setActiveTrack(link.dataset.jumpTab);
-    if (link.dataset.jumpSlide) {
+
+    requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         const activeTrack = getActiveTrack();
-        const slides = activeTrack.querySelectorAll(".slide");
-        const targetSlide = slides[Number(link.dataset.jumpSlide)];
+        const targetSlide = link.dataset.jumpTarget
+          ? activeTrack.querySelector(`#${link.dataset.jumpTarget}`)
+          : null;
         targetSlide?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
-    }
+    });
   });
 });
 
@@ -119,4 +121,14 @@ const observer = new IntersectionObserver(
 );
 
 document.querySelectorAll(".slide").forEach((slide) => observer.observe(slide));
+document.querySelectorAll(".skill-pillar").forEach((pillar) => {
+  pillar.addEventListener("mousemove", (e) => {
+    const rect = pillar.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    pillar.style.setProperty("--mouse-x", `${x}px`);
+    pillar.style.setProperty("--mouse-y", `${y}px`);
+  });
+});
+
 setActiveTrack(activeTrackName);
