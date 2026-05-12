@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="FS">
+  <rect width="64" height="64" fill="#101113"/>
+  <rect x="3" y="3" width="58" height="58" fill="none" stroke="#3aa65c" stroke-width="2"/>
+  <text x="32" y="32"
+    fill="#f4f1ea"
+    font-family="'Space Grotesk', Inter, Arial, sans-serif"
+    font-size="34"
+    font-weight="700"
+    text-anchor="middle"
+    dominant-baseline="central"
+    letter-spacing="-2">FS</text>
+</svg>
