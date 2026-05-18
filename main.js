@@ -195,7 +195,7 @@ tracks.forEach((track) => {
       }
 
       const distanceToTarget = Math.abs(targetSlide.offsetTop - currentSlide.offsetTop);
-      const snapDistance = Math.max(window.innerHeight * 0.72, distanceToTarget * 0.58);
+      const snapDistance = Math.max(window.innerHeight * 0.70, distanceToTarget * 0.30);
       const hasCrossedThreshold = Math.abs(track.scrollTop - currentSlide.offsetTop) >= snapDistance;
 
       if (hasCrossedThreshold) {

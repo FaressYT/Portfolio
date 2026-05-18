@@ -945,7 +945,7 @@ a.experience-logo:focus-visible {
 
 @media (max-width: 620px) {
   .track {
-    scroll-snap-type: y proximity;
+    scroll-snap-type: y mandatory;
   }
 
   .site-header {
