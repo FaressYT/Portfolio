@@ -5,10 +5,8 @@ const siteHeader = document.querySelector(".site-header");
 const progressFill = document.querySelector("[data-progress-fill]");
 
 let activeTrackName = "resume";
-let touchStartY = 0;
-let touchStartX = 0;
+let touchStartScrollTop = 0;
 let touchStartIndex = 0;
-let touchSnapLocked = false;
 
 function getVisibleTabs() {
   return tabs.filter((tab) => !tab.hidden);
@@ -166,8 +164,7 @@ tracks.forEach((track) => {
         return;
       }
 
-      touchStartY = event.touches[0].clientY;
-      touchStartX = event.touches[0].clientX;
+      touchStartScrollTop = track.scrollTop;
       touchStartIndex = getClosestSlideIndex(track);
     },
     { passive: true }
@@ -175,34 +172,35 @@ tracks.forEach((track) => {
 
   track.addEventListener(
     "touchend",
-    (event) => {
-      if (!track.classList.contains("is-active") || touchSnapLocked) {
+    () => {
+      if (!track.classList.contains("is-active")) {
         return;
       }
 
-      const touch = event.changedTouches[0];
-      if (!touch) {
+      const slides = getSlides(track);
+      if (slides.length === 0) {
         return;
       }
 
-      const deltaY = touchStartY - touch.clientY;
-      const deltaX = touchStartX - touch.clientX;
-      const isVerticalSwipe = Math.abs(deltaY) > Math.abs(deltaX);
-      const snapThreshold = Math.min(140, window.innerHeight * 0.16);
-      if (!isVerticalSwipe) {
+      const scrollDelta = track.scrollTop - touchStartScrollTop;
+      if (Math.abs(scrollDelta) < 24) {
         return;
       }
 
-      touchSnapLocked = true;
-      if (Math.abs(deltaY) >= snapThreshold) {
-        scrollToSlideIndex(touchStartIndex + Math.sign(deltaY));
-      } else {
-        scrollToSlideIndex(touchStartIndex);
+      const currentSlide = slides[touchStartIndex];
+      const direction = Math.sign(scrollDelta);
+      const targetSlide = slides[touchStartIndex + direction];
+      if (!currentSlide || !targetSlide) {
+        return;
       }
 
-      window.setTimeout(() => {
-        touchSnapLocked = false;
-      }, 520);
+      const distanceToTarget = Math.abs(targetSlide.offsetTop - currentSlide.offsetTop);
+      const snapDistance = Math.max(window.innerHeight * 0.72, distanceToTarget * 0.58);
+      const hasCrossedThreshold = Math.abs(track.scrollTop - currentSlide.offsetTop) >= snapDistance;
+
+      if (hasCrossedThreshold) {
+        scrollToSlideIndex(touchStartIndex + direction);
+      }
     },
     { passive: true }
   );
