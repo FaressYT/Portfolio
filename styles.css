@@ -858,7 +858,7 @@ a.experience-logo:focus-visible {
   .skills-grid,
   .metric-grid,
   .project-meta {
-    padding-top: 1rem;
+    padding-top: 0.6rem;
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -886,8 +886,7 @@ a.experience-logo:focus-visible {
   }
 
   .project-slide {
-    align-items: center;
-    align-items: safe center;
+    align-items: flex-start;
   }
 
   .project-slide .slide-grid {
@@ -946,7 +945,7 @@ a.experience-logo:focus-visible {
 
 @media (max-width: 620px) {
   .track {
-    scroll-snap-type: y proximity;
+    scroll-snap-type: y mandatory;
   }
 
   .site-header {
@@ -955,11 +954,12 @@ a.experience-logo:focus-visible {
   }
 
   .tab-list {
-    width: min(100%, 7.5rem);
+    width: min(calc(100vw - 1.7rem), calc(var(--tab-count, 2) * 7.25rem));
   }
 
   .tab-button {
     min-height: 2.35rem;
+    padding: 0 0.7rem;
     font-size: 0.68rem;
   }
 
@@ -982,9 +982,8 @@ a.experience-logo:focus-visible {
   }
 
   .project-slide {
-    align-items: center;
-    align-items: safe center;
-    min-height: 118svh;
+    align-items: flex-start;
+    min-height: 100svh;
     padding-top: 4.85rem;
   }
 

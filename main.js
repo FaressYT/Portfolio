@@ -5,6 +5,10 @@ const siteHeader = document.querySelector(".site-header");
 const progressFill = document.querySelector("[data-progress-fill]");
 
 let activeTrackName = "resume";
+let touchStartY = 0;
+let touchStartX = 0;
+let touchStartIndex = 0;
+let touchSnapLocked = false;
 
 function getVisibleTabs() {
   return tabs.filter((tab) => !tab.hidden);
@@ -12,6 +16,34 @@ function getVisibleTabs() {
 
 function getActiveTrack() {
   return document.querySelector(`[data-track="${activeTrackName}"]`);
+}
+
+function getSlides(track = getActiveTrack()) {
+  return track ? Array.from(track.querySelectorAll(".slide")) : [];
+}
+
+function getClosestSlideIndex(track = getActiveTrack()) {
+  const slides = getSlides(track);
+  if (slides.length === 0) {
+    return 0;
+  }
+
+  return slides.reduce((closestIndex, slide, index) => {
+    const current = Math.abs(slide.offsetTop - track.scrollTop);
+    const closest = Math.abs(slides[closestIndex].offsetTop - track.scrollTop);
+    return current < closest ? index : closestIndex;
+  }, 0);
+}
+
+function scrollToSlideIndex(index, behavior = "smooth") {
+  const activeTrack = getActiveTrack();
+  const slides = getSlides(activeTrack);
+  if (slides.length === 0) {
+    return;
+  }
+
+  const targetIndex = Math.min(Math.max(index, 0), slides.length - 1);
+  slides[targetIndex].scrollIntoView({ behavior, block: "start" });
 }
 
 function syncTabs() {
@@ -88,19 +120,12 @@ function scrollToSlide(direction) {
     return;
   }
 
-  const slides = Array.from(activeTrack.querySelectorAll(".slide"));
+  const slides = getSlides(activeTrack);
   if (slides.length === 0) {
     return;
   }
 
-  const currentIndex = slides.reduce((closestIndex, slide, index) => {
-    const current = Math.abs(slide.offsetTop - activeTrack.scrollTop);
-    const closest = Math.abs(slides[closestIndex].offsetTop - activeTrack.scrollTop);
-    return current < closest ? index : closestIndex;
-  }, 0);
-
-  const nextIndex = Math.min(Math.max(currentIndex + direction, 0), slides.length - 1);
-  slides[nextIndex].scrollIntoView({ behavior: "smooth", block: "start" });
+  scrollToSlideIndex(getClosestSlideIndex(activeTrack) + direction);
 }
 
 tabs.forEach((tab) => {
@@ -133,6 +158,54 @@ tracks.forEach((track) => {
       });
     }
   });
+
+  track.addEventListener(
+    "touchstart",
+    (event) => {
+      if (!track.classList.contains("is-active") || event.touches.length !== 1) {
+        return;
+      }
+
+      touchStartY = event.touches[0].clientY;
+      touchStartX = event.touches[0].clientX;
+      touchStartIndex = getClosestSlideIndex(track);
+    },
+    { passive: true }
+  );
+
+  track.addEventListener(
+    "touchend",
+    (event) => {
+      if (!track.classList.contains("is-active") || touchSnapLocked) {
+        return;
+      }
+
+      const touch = event.changedTouches[0];
+      if (!touch) {
+        return;
+      }
+
+      const deltaY = touchStartY - touch.clientY;
+      const deltaX = touchStartX - touch.clientX;
+      const isVerticalSwipe = Math.abs(deltaY) > Math.abs(deltaX);
+      const snapThreshold = Math.min(140, window.innerHeight * 0.16);
+      if (!isVerticalSwipe) {
+        return;
+      }
+
+      touchSnapLocked = true;
+      if (Math.abs(deltaY) >= snapThreshold) {
+        scrollToSlideIndex(touchStartIndex + Math.sign(deltaY));
+      } else {
+        scrollToSlideIndex(touchStartIndex);
+      }
+
+      window.setTimeout(() => {
+        touchSnapLocked = false;
+      }, 520);
+    },
+    { passive: true }
+  );
 });
 
 document.addEventListener("keydown", (event) => {
