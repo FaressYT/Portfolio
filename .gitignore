@@ -1,0 +1,7 @@
+# User Task List (Excluded from Git)
+todo.md
+todo.txt
+
+# OS metadata
+.DS_Store
+Thumbs.db

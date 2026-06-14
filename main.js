@@ -3,6 +3,15 @@ const tracks = Array.from(document.querySelectorAll("[data-track]"));
 const tabList = document.querySelector(".tab-list");
 const siteHeader = document.querySelector(".site-header");
 const progressFill = document.querySelector("[data-progress-fill]");
+const backToTopBtn = document.getElementById("backToTop");
+
+function updateBackToTopState() {
+  const activeTrack = getActiveTrack();
+  if (activeTrack && backToTopBtn) {
+    const shouldShow = activeTrack.scrollTop > 300;
+    backToTopBtn.classList.toggle("is-visible", shouldShow);
+  }
+}
 
 let activeTrackName = "resume";
 let touchStartScrollTop = 0;
@@ -109,6 +118,7 @@ function setActiveTrack(trackName) {
   requestAnimationFrame(() => {
     updateProgress();
     updateHeaderState();
+    updateBackToTopState();
   });
 }
 
@@ -153,6 +163,7 @@ tracks.forEach((track) => {
       window.requestAnimationFrame(() => {
         updateProgress();
         updateHeaderState();
+        updateBackToTopState();
       });
     }
   });
@@ -258,3 +269,7 @@ document.querySelectorAll(".skill-pillar").forEach((pillar) => {
 
 syncTabs();
 setActiveTrack(activeTrackName);
+
+backToTopBtn?.addEventListener("click", () => {
+  getActiveTrack()?.scrollTo({ top: 0, behavior: "smooth" });
+});
